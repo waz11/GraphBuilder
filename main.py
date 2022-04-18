@@ -1,16 +1,19 @@
-# This is a sample Python script.
+import string
+from GraphGenerator import generate_graph
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+projects = [
+    "https://github.com/waz11/AES.git",
+    # "https://github.com/waz11/GUI_maze.git",
+    # "https://github.com/Adarsh9616/Electricity_Billing_System.git",
+    # "https://github.com/chabedalam11/Exam-Seating-Arrangement-System-Using-JSP-Servlet.git",
+    # "https://github.com/meetakbari/CV-Resume-Builder.git"
+]
+
+def main():
+    for project in projects:
+        graphPath :string = generate_graph(project)
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
+    main()
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/

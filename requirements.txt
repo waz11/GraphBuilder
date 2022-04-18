@@ -1,0 +1,4 @@
+neo4j~=4.4.2
+javalang~=0.13.0
+pandas~=1.1.5
+nltk~=3.7
