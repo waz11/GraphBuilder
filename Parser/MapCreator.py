@@ -7,8 +7,12 @@ def handle_vertex(mapped_dict, name, key, **kwargs):
     if "att_names" in kwargs and kwargs["att_names"]:
         mapped_dict["attributes"] = kwargs["att_names"]
 
+def swap(key1, key2):
+    return key2, key1
 
 def handle_edge(mapped_arrows_dict, source_key, dest_key, type, text=None):
+    if(type=="method"):
+        source_key, dest_key = swap(source_key, dest_key)
     mapped_arrows_dict["type"] = type
     if text:
         mapped_arrows_dict["name"] = text
