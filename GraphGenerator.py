@@ -19,7 +19,7 @@ def generate_path_to_graph(pathToCode :string) -> string:
     outputPath = 'Files/graphs/' + projectName + '.json'
     return outputPath
 
-def generate_graph(gitPath: string) -> string:
+def generate_graph_from_git_project(gitPath: string) -> string:
     codePath = generate_path_to_code(gitPath)
     graphPath = generate_path_to_graph(codePath)
     if not os.path.exists(codePath):
