@@ -56,7 +56,7 @@ class GraphByNeo4j:
             obj = 'Class'
             if type=='method': obj='Method'
             elif type=='interface': obj='Interface'
-            query += "(v{}:{} ".format(key,obj) + '{' + "key:'{}', name:'{}', type:'{}'".format(key,name,type) + '}),'
+            query += "(v{}:{} ".format(key,'Node') + '{' + "key:'{}', name:'{}', type:'{}'".format(key,name,type) + '}),'
         return query
 
 
@@ -79,7 +79,7 @@ def loading_graph_file(path) -> None:
 
 
 if __name__ == "__main__":
-    vertices, edges = loading_graph_file('../Files/graphs/IterableList.json')
+    vertices, edges = loading_graph_file('../Files/graphs/AES.json')
     app = GraphByNeo4j()
     app.executeQuery('MATCH (n) DETACH DELETE n')
     app.build_graph(vertices,edges)
