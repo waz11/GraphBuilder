@@ -1,5 +1,5 @@
-from Components.Component import Component
-from Parser import codeExtractor
+from GraphBuilder.Components.Component import Component
+from GraphBuilder.Parser import codeExtractor
 
 
 class CodeWrapper(Component):

@@ -3,13 +3,13 @@ from os.path import join, dirname
 
 import javalang
 
-from Components.ClassAttribute import ClassAttribute
-from Components.ClassComponent import ClassComponent
-from Components.EnumComponent import EnumComponent
-from Components.MethodComponent import MethodComponent
-from Parser.CodeWrapper import CodeWrapper
-from Parser.MultiTypeClassAttribute import MultiTypeClassAttribute
-from Parser.codeExtractor import primitive_types, Errors
+from GraphBuilder.Components.ClassAttribute import ClassAttribute
+from GraphBuilder.Components.ClassComponent import ClassComponent
+from GraphBuilder.Components.EnumComponent import EnumComponent
+from GraphBuilder.Components.MethodComponent import MethodComponent
+from GraphBuilder.Parser.CodeWrapper import CodeWrapper
+from GraphBuilder.Parser.MultiTypeClassAttribute import MultiTypeClassAttribute
+from GraphBuilder.Parser.codeExtractor import primitive_types, Errors
 
 PATH = dirname(__file__)
 temp_dir = dirname(dirname(__file__))

@@ -1,4 +1,4 @@
-from Components.Component import Component
+from GraphBuilder.Components.Component import Component
 
 
 class ClassComponent(Component):

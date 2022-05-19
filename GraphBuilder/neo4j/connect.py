@@ -5,7 +5,7 @@ from neo4j import GraphDatabase
 # pip install neo4j
 
 # QUERIES:
-from Parser.json_functions import read_json_file
+from GraphBuilder.Parser.json_functions import read_json_file
 
 deleteAll = "MATCH (n) DETACH DELETE n"
 selectAll = "MATCH (n) RETURN (n)"
@@ -79,7 +79,7 @@ def loading_graph_file(path) -> None:
 
 
 if __name__ == "__main__":
-    vertices, edges = loading_graph_file('../Files/graphs/AES.json')
+    vertices, edges = loading_graph_file('../../Files/graphs/Electricity_Billing_System.json')
     app = GraphByNeo4j()
     app.executeQuery('MATCH (n) DETACH DELETE n')
     app.build_graph(vertices,edges)

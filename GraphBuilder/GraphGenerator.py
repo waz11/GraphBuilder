@@ -1,7 +1,7 @@
 import os
 import string
 from git.repo.base import Repo
-from Parser.CodeFromFile import CodeFromFile
+from GraphBuilder.Parser.CodeFromFile import CodeFromFile
 
 # pip install gitpython
 

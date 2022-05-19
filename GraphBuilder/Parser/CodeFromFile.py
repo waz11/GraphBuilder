@@ -2,10 +2,10 @@ import json
 import os
 from pathlib import Path
 import re
-from Parser.CodeWrapper import CodeWrapper
-from Parser.MapCreator import MapCreator
-from Parser.CodeParser import codeParser
-from Parser.json_functions import read_json_file, save_json_to_file
+from GraphBuilder.Parser.CodeWrapper import CodeWrapper
+from GraphBuilder.Parser.MapCreator import MapCreator
+from GraphBuilder.Parser.CodeParser import codeParser
+from GraphBuilder.Parser.json_functions import read_json_file, save_json_to_file
 
 non_working_files = ["module-info", "TestNotesText", "TestRichTextRun", "TestNameIdChunks", "PAPAbstractType",
                      "TAPAbstractType", "PPDrawing", "HSLFFill", "HemfGraphics", "DrawPaint", "ExtSSTRecord",
@@ -50,7 +50,7 @@ class CodeFromFile:
             path_in_str = str(path)
             if path_in_str.split('/')[-1].split('.')[0] in non_working_files:
                 continue
-            with open(path_in_str, "r") as f:
+            with open(path_in_str, "r", errors="ignore") as f:
                 self.full_code_text += f.read()
                 self.full_code_text = re.sub("package(.*?);", '', self.full_code_text)
                 self.full_code_text = re.sub("import(.*?);", '', self.full_code_text)
