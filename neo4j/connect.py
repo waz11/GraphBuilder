@@ -55,9 +55,9 @@ def loading_graph_file(path) -> None:
 
 
 if __name__ == "__main__":
-    # path = '../../Files/graphs/hssf.json'
-    path = '../../Files/graphs/iterableList.json'
-    # path = '../../Files/graphs/ron.json'
+    # path = '../Files/graphs/hssf.json'
+    path = '../Files/graphs/IterableList.json'
+    # path = '../Files/graphs/ron.json'
 
     vertices, edges = loading_graph_file(path)
 
