@@ -1,29 +1,19 @@
 import json
 import string
 from neo4j import GraphDatabase
-
-# pip install neo4j
-
-# QUERIES:
 from GraphBuilder.Parser.json_functions import read_json_file
 
-deleteAll = "MATCH (n) DETACH DELETE n"
+# pip install neo4j
 selectAll = "MATCH (n) RETURN (n)"
+deleteAll = "MATCH (n) DETACH DELETE n"
 
 
 class GraphByNeo4j:
 
-    def __init__(self):
-        uri = "neo4j://localhost:7687"
-        user = "neo4j"
-        password = "1234"
-
+    def __init__(self, port=7687, user="neo4j", password='1234'):
+        uri = "neo4j://localhost:"+str(port)
         self.driver = GraphDatabase.driver(uri, auth=(user, password))
         self.session = self.driver.session()
-
-    # def close(self):
-    #     self.driver.close()
-
 
     def executeQuery(self, query):
         tx = self.session.begin_transaction()
@@ -32,44 +22,30 @@ class GraphByNeo4j:
         return result
 
     def build_graph(self,vertices :list,edges :list):
-        query = self.__build_vertices(vertices)
-        query += self.__build_edges(edges)
-        query = query[:-1]
-        self.executeQuery(query)
-
-    def __build_edges(self,edges) ->string:
-        query = ""
-        for e in edges:
-            type = e['type']
-            source = e['from']
-            to = e['to']
-            query += "((v{})-[:{}]->(v{})),".format(source, type, to)
-        return query
-
-    def __build_vertices(self, vertices) ->string:
-        query = 'CREATE '
         for v in vertices:
-            key = v['key']
-            name = v['name']
-            type = v['type']
-            # attributes = v['attributes']
-            obj = 'Class'
-            if type=='method': obj='Method'
-            elif type=='interface': obj='Interface'
-            query += "(v{}:{} ".format(key,'Node') + '{' + "key:'{}', name:'{}', type:'{}'".format(key,name,type) + '}),'
+            query = self.add_vertex(v)
+            self.executeQuery(query)
+
+        for e in edges:
+            query = self.add_edge(e)
+            self.executeQuery(query)
+
+
+    def add_edge(self, edge) ->string:
+        type = edge['type']
+        source = edge['from']
+        to = edge['to']
+        query = "MATCH (a:Node),(b:Node) WHERE a.key = '{}' AND b.key = '{}' CREATE (a)-[r:{}]->(b)".format(source,to,type)
         return query
 
-
-
-        # for e in edges:
-        #     type = e['type']
-        #     source = e['from']
-        #     to = e['to']
-        #     query = query + "((v{})-[:{}]->(v{})),".format(source, type, to)
-        #
-        # query = query[:-1]
-        # self.executeQuery(query)
-
+    def add_vertex(self, vertex) -> string:
+        query = 'CREATE '
+        key = vertex['key']
+        name = vertex['name']
+        type = vertex['type']
+      # attributes = v['attributes']
+        query += "(v{}:{} ".format(key, 'Node') + '{' + "key:'{}', name:'{}', type:'{}'".format(key, name, type) + '})'
+        return query
 
 def loading_graph_file(path) -> None:
     data :json = read_json_file(path)
@@ -79,7 +55,12 @@ def loading_graph_file(path) -> None:
 
 
 if __name__ == "__main__":
-    vertices, edges = loading_graph_file('../../Files/graphs/Electricity_Billing_System.json')
+    # path = '../../Files/graphs/hssf.json'
+    path = '../../Files/graphs/iterableList.json'
+    # path = '../../Files/graphs/ron.json'
+
+    vertices, edges = loading_graph_file(path)
+
     app = GraphByNeo4j()
     app.executeQuery('MATCH (n) DETACH DELETE n')
     app.build_graph(vertices,edges)
